@@ -51,15 +51,15 @@ function createDice(number) {
 	return dice;
 }
 
-function randomizeDice(diceContainer, numberOfDice) {
-	diceContainer.innerHTML = "";
-
-	for (let i = 0; i < numberOfDice; i++) {
-		const random = Math.floor((Math.random() * 6) + 1);
-		const dice = createDice(random);
-
-		diceContainer.appendChild(dice);
-	}
+async function randomizeDice(diceContainer, numberOfDice){
+    diceContainer.innerHTML= "";
+    const url = "https://dicerollerserver.azurewebsites.net/generateNum"
+    for (let i=0;i<numberOfDice;i++){
+        const response = await fetch(url);
+        const random = await response.text();
+        const dice = createDice(random);
+        diceContainer.appendChild(dice);
+    }
 }
 
 const NUMBER_OF_DICE = 5;
